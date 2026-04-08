@@ -18,14 +18,16 @@ public class Bag implements Collection {
     }
 
     public boolean add(Object obj) {
+        //is the bag full?
+        if (nextIndex == items.length) {
+            return false;
+        }
 
         //fill the spot at nextIndex, O(1)
         items[nextIndex] = obj.toString();
         size++;
         nextIndex++;
-
-        //the bag was full!
-        return false;
+        return true;
     }
 
     /**
@@ -46,11 +48,11 @@ public class Bag implements Collection {
         return false;
     }
 
-    public boolean remove(Object search) {
+    public boolean contains(Object obj) {
         return false;
     }
 
-    public boolean contains(Object obj) {
+    public boolean remove(Object search) {
         return false;
     }
 
