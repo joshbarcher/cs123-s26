@@ -22,5 +22,11 @@ public class Main {
         System.out.println("Size: " + bag.size());
 
         System.out.println(bag);
+
+        //try removing an element
+        bag.remove("shirt");
+        bag.remove("shorts");
+
+        System.out.println(bag);
     }
 }

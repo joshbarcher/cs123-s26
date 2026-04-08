@@ -45,15 +45,42 @@ public class Bag implements Collection {
     }
 
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     public boolean contains(Object obj) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].equals(obj)) {
+                return true;
+            }
+        }
         return false;
     }
 
     public boolean remove(Object search) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].equals(search)) {
+                //removing the element
+                items[i] = null;
+
+                //shift elements down one index
+                for (int j = i; j < items.length - 1; j++) {
+                    items[j] = items[j + 1];
+                }
+                items[items.length - 1] = null; //clear the last item
+
+                return true;
+            }
+        }
         return false;
+    }
+
+    public void clear() {
+        for (int i = 0; i < items.length; i++) {
+            items[i] = null;
+        }
+        size = 0;
+        nextIndex = 0;
     }
 
     /**
