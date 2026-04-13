@@ -2,29 +2,34 @@ package bag;
 
 import java.util.Arrays;
 
-public class Bag implements Collection {
+public class Bag<T> implements Collection<T> {
     private static final int DEFAULT_CAP = 10;
 
-    private String[] items;
+    private T[] items;
     private int size;
     private int nextIndex; //holds next empty spot
 
     public Bag() {
-        items = new String[10];
+        //you can't instantiate type T (we don't know what the constructors look like)
+        //T myNewObj = new T();
+
+        //you can't instantiate an array of type T (so you never place anything but an object
+        //of type T in the array)
+        items = (T[])new Object[10];
     }
 
     public Bag(int capacity) {
-        items = new String[capacity];
+        items = (T[])new Object[capacity];
     }
 
-    public boolean add(Object obj) {
+    public boolean add(T obj) {
         //is the bag full?
         if (nextIndex == items.length) {
             return false;
         }
 
         //fill the spot at nextIndex, O(1)
-        items[nextIndex] = obj.toString();
+        items[nextIndex] = obj;
         size++;
         nextIndex++;
         return true;
@@ -48,7 +53,15 @@ public class Bag implements Collection {
         return size == 0;
     }
 
-    public boolean contains(Object obj) {
+    public T getSomething() {
+        //just hand them the first item in the bag
+        if (items[0] != null) {
+            return items[0];
+        }
+        return null;
+    }
+
+    public boolean contains(T obj) {
         for (int i = 0; i < items.length; i++) {
             if (items[i].equals(obj)) {
                 return true;
@@ -57,7 +70,7 @@ public class Bag implements Collection {
         return false;
     }
 
-    public boolean remove(Object search) {
+    public boolean remove(T search) {
         for (int i = 0; i < items.length; i++) {
             if (items[i].equals(search)) {
                 //removing the element
