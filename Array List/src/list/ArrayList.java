@@ -1,24 +1,69 @@
 package list;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class ArrayList<T> implements Collection<T>, List<T> {
+    private static final int INITIAL_CAPACITY = 5;
+
     private T[] data;
-    private int size;
+    private int size; //AKA nextIndex...
 
     public ArrayList() {
-        data = (T[])new Object[10];
+        data = (T[])new Object[INITIAL_CAPACITY];
     }
 
-    public boolean add(T t) {
-        return false;
+    public boolean add(T newElem) {
+        //detect if the array is full
+        if (data.length == size) {
+            resize();
+        }
+
+        data[size] = newElem;
+        size++;
+        return true;
+    }
+
+    private void resize() {
+        //create a new array, replace the old array
+        T[] oldData = data;
+        data = (T[])new Object[data.length * 2]; //increase by 100%
+
+        //copy over all elements to the new array
+        for (int i = 0; i < oldData.length; i++) {
+            data[i] = oldData[i];
+        }
+    }
+
+    public void add(int index, T element) {
+
+    }
+
+    public T get(int index) {
+        validateIndex(index);
+        return data[index];
+    }
+
+    private void validateIndex(int index) {
+        if (index >= size) {
+            throw new IndexOutOfBoundsException("Invalid index");
+        }
+    }
+
+    //returns the old value after replacing it
+    public T set(int index, T element) {
+        validateIndex(index);
+
+        T oldValue = data[index];
+        data[index] = element; //replaces the old value in the list
+        return oldValue;
     }
 
     public boolean remove(Object o) {
         return false;
+    }
+
+    public T remove(int index) {
+        return null;
     }
 
     public int size() {
@@ -37,47 +82,22 @@ public class ArrayList<T> implements Collection<T>, List<T> {
 
     }
 
-    @Override
-    public T get(int index) {
-        return null;
-    }
-
-    @Override
-    public T set(int index, T element) {
-        return null;
-    }
-
-    @Override
-    public void add(int index, T element) {
-
-    }
-
-    @Override
-    public T remove(int index) {
-        return null;
-    }
-
-    @Override
     public int indexOf(Object o) {
         return 0;
     }
 
-    @Override
     public int lastIndexOf(Object o) {
         return 0;
     }
 
-    @Override
     public ListIterator<T> listIterator() {
         return null;
     }
 
-    @Override
     public ListIterator<T> listIterator(int index) {
         return null;
     }
 
-    @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return List.of();
     }
@@ -102,7 +122,6 @@ public class ArrayList<T> implements Collection<T>, List<T> {
         return false;
     }
 
-    @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         return false;
     }
@@ -113,5 +132,9 @@ public class ArrayList<T> implements Collection<T>, List<T> {
 
     public boolean retainAll(Collection<?> c) {
         return false;
+    }
+
+    public String toString() {
+        return Arrays.toString(data);
     }
 }
