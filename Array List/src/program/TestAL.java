@@ -39,5 +39,14 @@ public class TestAL {
         System.out.println("Second favorite movie is: " +
                 topMovies.get(1));
         System.out.println(topMovies);
+
+        System.out.println(topMovies.contains("Shawshank Redemption"));
+        System.out.println(topMovies.contains("Green Mile"));
+
+        topMovies.clear();
+
+        System.out.println(topMovies.contains("Shawshank Redemption"));
+        System.out.println(topMovies.size());
+        System.out.println(topMovies);
     }
 }

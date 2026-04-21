@@ -34,8 +34,27 @@ public class ArrayList<T> implements Collection<T>, List<T> {
         }
     }
 
+    /**
+     * Inserts an element at a position in the internal array,
+     * and shifts elements out of the way to make room for it.
+     *
+     * @param index index at which the specified element is to be inserted
+     * @param element element to be inserted
+     */
     public void add(int index, T element) {
+        validateIndex(index);
 
+        //detect if the array is full
+        if (data.length == size) {
+            resize();
+        }
+
+        //shift elements up one index
+        for (int i = size - 1; i >= index; i--) {
+            data[i] = data[i + 1];
+        }
+        data[index] = element;
+        size++;
     }
 
     public T get(int index) {
@@ -44,7 +63,7 @@ public class ArrayList<T> implements Collection<T>, List<T> {
     }
 
     private void validateIndex(int index) {
-        if (index >= size) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Invalid index");
         }
     }
@@ -58,6 +77,34 @@ public class ArrayList<T> implements Collection<T>, List<T> {
         return oldValue;
     }
 
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public boolean contains(Object other) {
+        //loop over the "filled" part of the list
+        for (int i = 0; i < size; i++) {
+            if (other.equals(data[i])) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void clear() {
+        //clear out the array
+        for (int i = 0; i < size; i++) {
+            data[i] = null;
+        }
+
+        //update our bookkeeping values
+        size = 0;
+    }
+
     public boolean remove(Object o) {
         return false;
     }
@@ -66,75 +113,61 @@ public class ArrayList<T> implements Collection<T>, List<T> {
         return null;
     }
 
-    public int size() {
-        return 0;
+    public String toString() {
+        return Arrays.toString(data);
     }
 
-    public boolean isEmpty() {
-        return false;
-    }
-
-    public boolean contains(Object o) {
-        return false;
-    }
-
-    public void clear() {
-
-    }
+    //no implementations below this...
 
     public int indexOf(Object o) {
-        return 0;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public int lastIndexOf(Object o) {
-        return 0;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public ListIterator<T> listIterator() {
-        return null;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public ListIterator<T> listIterator(int index) {
-        return null;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public List<T> subList(int fromIndex, int toIndex) {
-        return List.of();
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public Iterator<T> iterator() {
-        return null;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public Object[] toArray() {
-        return new Object[0];
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public boolean containsAll(Collection<?> c) {
-        return false;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public boolean removeAll(Collection<?> c) {
-        return false;
+        throw new UnsupportedOperationException("Operation not supported");
     }
 
     public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-    public String toString() {
-        return Arrays.toString(data);
+        throw new UnsupportedOperationException("Operation not supported");
     }
 }
