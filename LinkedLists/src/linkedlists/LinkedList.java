@@ -22,16 +22,81 @@ public class LinkedList {
 
             current.next = new Node(obj);
         }
+        size++;
     }
 
     //returns true if obj is in the list, otherwise false
     public boolean contains(Object obj) {
+        Node current = head;
+        while (current != null) {
+            if (current.data.equals(obj)) {
+                return true;
+            }
+            current = current.next;
+        }
+
         return false;
     }
 
     //print out the linked list in the format head -> A -> B -> C -> D -> null
     public void printList() {
+        if (head == null) {
+            System.out.println("head -> null");
+            return; //exit
+        }
 
+        System.out.print("head -> ");
+
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " -> ");
+            current = current.next;
+        }
+        System.out.println("null");
+    }
+
+    public boolean removeFirst() {
+        if (head == null) return false;
+        head = head.next; //move head to the second element
+        size--;
+        return true;
+    }
+
+    public boolean removeLast() {
+        //1. check if list is empty
+        if (head == null) return false;
+
+        //1.5 check if one element in the LL
+        if (head.next == null) {
+            head = null;
+            size = 0;
+            return true;
+        }
+
+        //2. find the last node...
+        Node current = head;
+        while (current.next.next != null) {
+            //moves one node ahead in the list
+            current = current.next;
+        }
+
+        //3. remove it
+        current.next = null;
+        size--;
+
+        return true;
+    }
+
+    public boolean remove(Object obj) {
+        return false;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     //a nested (inner) class
