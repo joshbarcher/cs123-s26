@@ -12,18 +12,27 @@ public class TestList {
         colors.add("yellow");
         colors.add("gray");
 
-//        for (int i = 1; i <= 100; i++) {
-//            colors.add("gray");
-//        }
-        colors.printList();
-        while (!colors.isEmpty()) {
-            System.out.println(colors.removeFirst());
-            colors.printList();
-        }
+        System.out.println(colors.get(0));
+        System.out.println(colors.get(4));
+        System.out.println(colors.get(6));
 
-//        System.out.println(colors.contains("orange"));
-//        System.out.println(colors.contains("purple"));
-//        System.out.println(colors.contains("blue"));
-//        System.out.println(colors.contains("brown"));
+        colors.set(0, "cyan");
+        colors.set(4, "magenta");
+        colors.set(6, "grey");
+        colors.printList();
+
+        //we have to be careful about using a LL optimally
+        LinkedList listOfNums = new LinkedList();
+        System.out.println("Adding nums");
+        for (int i = 1; i < 1_000_000; i++) {
+            listOfNums.add(i);
+        }
+        System.out.println("All done!");
+
+        //access each element in the LL - this loop is O(n^2)
+        for (int i = 0; i < listOfNums.size(); i++) {
+            Object num = listOfNums.get(i);
+        }
+        System.out.println("Accessed all elements");
     }
 }

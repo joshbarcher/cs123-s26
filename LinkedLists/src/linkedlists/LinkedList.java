@@ -3,6 +3,7 @@ package linkedlists;
 public class LinkedList {
     //access to all nodes through the first node
     private Node head;
+    private Node tail;
     private int size;
 
     public LinkedList() {
@@ -13,16 +14,41 @@ public class LinkedList {
         //if the list is empty, add the first element
         if (head == null) {
             head = new Node(obj);
+            tail = head;
         } else {
-            //use another variable, don't alter "head" reference
-            Node current = head;
-            while (current.next != null) {
-                current = current.next;
-            }
-
-            current.next = new Node(obj);
+            //use tail to immediately get to the end of the list
+            tail.next = new Node(obj);
+            tail = tail.next;
         }
         size++;
+    }
+
+    public Object get(int index) {
+        indexCheck(index);
+        Node found = getNodeAtIndex(index);
+        return found.data;
+    }
+
+    public Node getNodeAtIndex(int index) {
+        Node current = head;
+        for (int i = 0; i <= index - 1; i++) {
+            current = current.next;
+        }
+
+        return current;
+    }
+
+    public void indexCheck(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Bad index");
+        }
+    }
+
+    //replace the value at the position - index
+    public void set(int index, Object newElem) {
+        indexCheck(index);
+        Node found = getNodeAtIndex(index);
+        found.data = newElem;
     }
 
     //returns true if obj is in the list, otherwise false
