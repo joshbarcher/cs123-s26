@@ -22,28 +22,67 @@ public class DoubleLL<T> {
         size++;
     }
 
-    public void addFirst() {
-
+    public void addFirst(T element) {
+        if (head == null) {
+            head = tail = new Node(element);
+        } else {
+            Node newNode = new Node(element);
+            newNode.next = head;
+            head.prev = newNode;
+            head = newNode;
+        }
+        size++;
     }
 
     public boolean removeFirst() {
-        return false;
+        if (head == null) {
+            return false;
+        } else if (size == 1) {
+            head = tail = null;
+            size = 0;
+        } else {
+            head = head.next;
+            head.prev = null;
+            size--;
+        }
+        return true;
     }
 
-    public void addLast() {
+    public void addLast(T element) {
+        if (head == null) {
+            head = tail = new Node(element);
+        } else {
+            Node newNode = new Node(element);
 
+            //adjust references
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        }
+        size++;
     }
 
     public boolean removeLast() {
-        return false;
+        if (head == null) {
+            return false;
+        } else if (size == 1) {
+            head = tail = null;
+            size = 0;
+        } else {
+            //move to the next-to-last node
+            tail = tail.prev;
+            tail.next = null;
+            size--;
+        }
+        return true;
     }
 
     public int size() {
-        return 0;
+        return size;
     }
 
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     public boolean contains(T search) {
