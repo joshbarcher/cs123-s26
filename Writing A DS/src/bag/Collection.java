@@ -1,10 +1,12 @@
 package bag;
 
-public interface Collection {
-    boolean add(Object obj);
-    boolean remove(Object search);
+//this defines the behavior of our data structures
+public interface Collection<T> {
+    boolean add(T obj);
+    boolean remove(T search);
     void clear();
-    boolean contains(Object obj);
+    boolean contains(T obj);
     int size();
     boolean isEmpty();
+    T getSomething();
 }
