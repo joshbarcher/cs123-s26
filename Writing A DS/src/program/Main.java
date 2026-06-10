@@ -44,5 +44,9 @@ public class Main {
 
         String thing = bag.getSomething();
         System.out.println(thing);
+
+        for (String item : bag) {
+            System.out.println("Taking " + item + " out of the bag!");
+        }
     }
 }
