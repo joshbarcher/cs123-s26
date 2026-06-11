@@ -1,8 +1,9 @@
 package bag;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-public class Bag<T> implements Collection<T> {
+public class Bag<T> implements Collection<T>, Iterable<T> {
     private static final int DEFAULT_CAP = 10;
 
     private T[] items;
@@ -75,6 +76,7 @@ public class Bag<T> implements Collection<T> {
             if (items[i].equals(search)) {
                 //removing the element
                 items[i] = null;
+                size--;
 
                 //shift elements down one index
                 for (int j = i; j < items.length - 1; j++) {
@@ -103,5 +105,28 @@ public class Bag<T> implements Collection<T> {
     public String toString() {
         //static method on the Arrays class
         return Arrays.toString(items);
+    }
+
+    public Iterator<T> iterator() {
+        return new BagIterator();
+    }
+
+    public class BagIterator implements Iterator<T> {
+
+        //track the position of the iterator in the bag
+        private int currentIndex = 0;
+
+        public BagIterator() {
+            // do nothing...
+        }
+
+        public boolean hasNext() {
+            //naive solution
+            return currentIndex < size;
+        }
+
+        public T next() {
+            return items[currentIndex++];
+        }
     }
 }
